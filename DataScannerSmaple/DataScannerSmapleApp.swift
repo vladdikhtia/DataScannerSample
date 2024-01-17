@@ -9,9 +9,17 @@ import SwiftUI
 
 @main
 struct DataScannerSmapleApp: App {
+    
+    @StateObject private var viewModel = ScannerViewModel()
+
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(viewModel)
+                .task {
+                    await viewModel.requestDataScannerAccessStatus()
+                }
         }
     }
 }
